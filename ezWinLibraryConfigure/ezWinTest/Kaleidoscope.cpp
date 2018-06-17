@@ -1,3 +1,4 @@
+/*为了满足实验要求，在原来基础上画了在中线位置的正方形，并且从新设置了一个偏移量函数*/
 #include"rect.h"
 #include"uniform.h"
 using namespace std; 
@@ -25,6 +26,23 @@ float RandomOffSet(int Range, float TrinketSize)
 		OffSet = TrinketSize / 2.0f;
 	}
 	return OffSet;
+}
+
+//画在中线的时候重新设置偏移量为了好看些
+float RandomOffSet1(int Range, float TrinketSize)
+
+{
+
+	float OffSet2 = Uniform(0, Range * 10) / 10.0f;
+	//正方形与中心的距离必须大于其边长的一半
+
+	if (OffSet2 < TrinketSize)
+
+	{
+		OffSet2 = TrinketSize;
+	}
+
+	return OffSet2;
 }
 
 //随机设置正方形的边长
@@ -59,13 +77,17 @@ int Kaleidoscope()
 	Trinket3.SetColor(Color2);
 	Trinket4.SetColor(Color1);
 
-	OffSet = RandomOffSet(MAX_SIZE, Size);
+	OffSet = RandomOffSet1(MAX_SIZE, Size);
 
-	Trinket1.SetPosition(Center + OffSet, Center + OffSet);
+	/*Trinket1.SetPosition(Center + OffSet, Center + OffSet);
 	Trinket2.SetPosition(Center - OffSet, Center + OffSet);
 	Trinket3.SetPosition(Center - OffSet, Center - OffSet);
-	Trinket4.SetPosition(Center + OffSet, Center - OffSet);
-
+	Trinket4.SetPosition(Center + OffSet, Center - OffSet);*/
+	//画在中线位置
+	Trinket1.SetPosition(Center + OffSet, Center);
+	Trinket2.SetPosition(Center, Center + OffSet);
+	Trinket3.SetPosition(Center - OffSet, Center);
+	Trinket4.SetPosition(Center, Center - OffSet);
 	Trinket1.Draw();
 	Trinket2.Draw();
 	Trinket3.Draw();
